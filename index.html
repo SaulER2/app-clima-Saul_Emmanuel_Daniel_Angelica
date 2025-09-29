@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="./media/mapa.png">
+  <title>WeatherApp</title>
+</head>
+<body>
+    <header>
+        <h1 class="greeting"><span>🏠</span> Hola Buenos Días!</h1>
+        <nav class="search-bar">
+            <span>🔍</span>
+            <input type="list" placeholder="Buscar" class="search" list="citys">
+            <datalist id="citys">
+                <option value="Cancun, Mexico"></option>
+                <option value="Yucatan, Mexico"></option>
+                <option value="Paris, Francia"></option>
+                <option value="Seul, Corea del Sur"></option>
+                <option value="Las Vegas, USA"></option>
+                <option value="Tokio, Japon"></option>
+                <option value="Nueva Jersey, USA"></option>
+                <option value="Edimburgo, Escocia"></option>
+                <option value="SeibaPlaya, Mexico"></option>
+                <option value="Chetumal, Mexico"></option>
+                <option value="Madrid, España"></option>
+            </datalist>
+        </nav>
+    </header>
+    <main>
+        <!--<section class="current-weather">
+            <img src="https://img.icons8.com/ios/100/ffffff/cloud.png" alt="cloud">
+            <div>
+                <h2>13°C</h2>
+                <p>Cancun, Mexico</p>
+            </div>
+        </section>-->
+        <section class="weather-today">
+            <div class="current-weather">
+                <div class="current-left">
+                <span class="big-icon">☀️</span>
+                <div class="location">
+                    <h2><span class="country">Mexico</span>, <span class="place">Cancun</span></h2>
+                </div>
+                </div>
+                <div class="current-right">
+                <span class="temp-now">31°</span>
+                </div>
+            </div>
+
+            <article class="forecast">
+                <div class="forecast-card">
+                    <span class="day">Lun</span>
+                    <span class="icon">🌧️</span>
+                    <span class="temp">24°</span>
+                    <span class="hour">10 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Mar</span>
+                    <span class="icon">⛅</span>
+                    <span class="temp">25°</span>
+                    <span class="hour">11 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Mie</span>
+                    <span class="icon">☀️</span>
+                    <span class="temp">30°</span>
+                    <span class="hour">12 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Jue</span>
+                    <span class="icon">🌧️</span>
+                    <span class="temp">31°</span>
+                    <span class="hour">1 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Vie</span>
+                    <span class="icon">🌧️</span>
+                    <span class="temp">20°</span>
+                    <span class="hour">2 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Sab</span>
+                    <span class="icon">☀️</span>
+                    <span class="temp">19°</span>
+                    <span class="hour">3 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Dom</span>
+                    <span class="icon">☀️</span>
+                    <span class="temp">24°</span>
+                    <span class="hour">4 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Lun</span>
+                    <span class="icon">🌧️</span>
+                    <span class="temp">30°</span>
+                    <span class="hour">5 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Mar</span>
+                    <span class="icon">⛅</span>
+                    <span class="temp">26°</span>
+                    <span class="hour">6 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Mie</span>
+                    <span class="icon">⛅</span>
+                    <span class="temp">26°</span>
+                    <span class="hour">7 p.m.</span>
+                </div>
+                <div class="forecast-card">
+                    <span class="day">Jue</span>
+                    <span class="icon">☀️</span>
+                    <span class="temp">30°</span>
+                    <span class="hour">8 p.m.</span>
+                </div>
+            </article>
+        </section>
+        <ul class="days-of-week">
+            <li class="day">Lun</li>
+            <li class="day">Mar</li>
+            <li class="day">Mie</li>
+            <li class="day">Jue</li>
+            <li class="day">Vie</li>
+            <li class="day">Sab</li>
+            <li class="day">Dom</li>
+        </ul>
+
+        <h2 class="span-popular-localities">Localidades Populares</h2>
+        <section id="popular-localities">
+            <div class="city">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/sun.png" alt="sun">
+                <h3>31°C</h3>
+                <p>Roma, Italia</p>
+            </div>
+            <div class="city">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/sun.png" alt="sun">
+                <h3>37°C</h3>
+                <p>Rio de Janeiro</p>
+            </div>
+            <div class="city">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/cloud.png" alt="cloud">
+                <h3>10°C</h3>
+                <p>Paris, Francia</p>
+            </div>
+            <div class="city">
+                <img src="https://img.icons8.com/ios-filled/50/ffffff/rain.png" alt="rain">
+                <h3>24°C</h3>
+                <p>Madrid, España</p>
+            </div>
+        </section>
+
+        <section class="map-info-container">
+            <figure class="map-image">
+                <img src="./media/mapa.png" alt="Mapa">
+            </figure>
+            <article class="weather-details">
+                <div>
+                    <div class="weather-details-row uno">
+                       <span class="weather-details-item uno"><strong>Viento:</strong></span><span class="weather-details-value uno"><strong>15 km/h</strong></span> 
+                    </div>
+                    <div class="weather-details-row dos">
+                       <span class="weather-details-item dos"><strong>Ráfagas de viento:</strong></span><span class="weather-details-value dos"><strong>25 km/h</strong></span>
+                    </div>
+                    <div class="weather-details-row tres">
+                       <span class="weather-details-item tres"><strong>Calidad del aire:</strong></span><span class="weather-details-value tres"><strong>Buena</strong></span>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <section class="weather-section">
+            <div class="weather-card">
+                <span class="city">Aguascalientes</span>
+                <span class="icon">⛅</span>
+                <span class="temp">28°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Chihuahua</span>
+                <span class="icon">⛅</span>
+                <span class="temp">29°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">C. Nezahualcoyoc</span>
+                <span class="icon">☀️</span>
+                <span class="temp">17°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Ecatepec de Morelos</span>
+                <span class="icon">☀️</span>
+                <span class="temp">18°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Campeche</span>
+                <span class="icon">🌧️</span>
+                <span class="temp">18°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">C. de México</span>
+                <span class="icon">🌧️</span>
+                <span class="temp">20°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Guadalajara</span>
+                <span class="icon">⛅</span>
+                <span class="temp">24°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Monterrey</span>
+                <span class="icon">⛅</span>
+                <span class="temp">28°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Puebla</span>
+                <span class="icon">☀️</span>
+                <span class="temp">20°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Mérida</span>
+                <span class="icon">☀️</span>
+                <span class="temp">29°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Veracruz</span>
+                <span class="icon">🌧️</span>
+                <span class="temp">24°</span>
+            </div>
+            <div class="weather-card">
+                <span class="city">Tijuana</span>
+                <span class="icon">🌧️</span>
+                <span class="temp">28°</span>
+            </div>
+        </section>
+
+    </main>
+    <footer>
+        <nav class="navbar">
+            <ul>
+                <li class="navbar-item"><a href="#"><img src="https://img.icons8.com/ios/50/ffffff/home.png" alt="home"></a></li>
+                <li class="navbar-item"><a href="#"><img src="https://img.icons8.com/ios/50/ffffff/like--v1.png" alt="like"></a></li>
+                <li class="navbar-item" id="user"><a href="#"><img src="https://img.icons8.com/ios/50/ffffff/user.png" alt="user"></a></li>
+                <li class="navbar-item"><a href="#"><img src="https://img.icons8.com/?size=50&id=96205&format=png&color=ffffff" alt="dark-mode"></a></li>
+            </ul>
+        </nav>
+        <section class="footer-info">
+            <p>© 2025 Clima, Inc. "Clima" y el diseño del sol son marcas comerciales registradas de Clima, Inc. Todos los derechos reservados.</p>
+            <p>2024 &copy; All rights reserved</p>
+            <a class="footer-link" href="#terms">Términos de uso</a> | <a class="footer-link" href="#privacy">Política de privacidad</a> | <a class="footer-link" href="#cookies">Política de cookies</a>
+        </section>
+    </footer>
+</body>
