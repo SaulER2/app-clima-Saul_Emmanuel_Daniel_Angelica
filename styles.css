@@ -12,6 +12,7 @@ main {
 .greeting{
     margin-top: 20px;
     margin-bottom: 20px;
+    margin-left: 20px;
 }
 
 .search-bar{
@@ -121,25 +122,6 @@ h2.span-popular-localities {
 .navbar li:active {
     background: #6B5DD3;
 }
-
-/*@media screen and (min-width: 1500px) {
-    header{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-    }
-    .search-bar{
-        margin-left: 0;
-        margin-right: 20px;
-        width: 300px;
-    }
-    #user {
-        position: fixed;
-        bottom: 93%;
-        right: 25%;
-    }
-}*/
 
 .weather-today {
   margin: 20px;
@@ -254,8 +236,7 @@ h2.span-popular-localities {
 @media only screen and (min-width: 815px) {
 
     .greeting{
-    text-align: left;
-    margin-left: 25px;
+        flex: 1;
     }
 
     header{
@@ -268,6 +249,7 @@ h2.span-popular-localities {
         margin-left: 0;
         margin-right: 20px;
         width: 300px;
+        text-align: left;
     }
 
     ul.days-of-week {
@@ -327,11 +309,8 @@ h2.span-popular-localities {
 }
 @media only screen and (max-width: 814px) {
     
-    .greeting{
-    text-align: center;
-       span {
-        display: none;
-       }
+    .home-icon {
+    display: none;
     }
 
     .weather-section {
