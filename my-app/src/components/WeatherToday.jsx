@@ -6,7 +6,7 @@ export default function WeatherToday({ cityData, selectedIndex, onSelectDay }) {
 
     return (
         <section className="weather-today">
-            <div className="current-weather">
+            <article className="current-weather">
                 <div className="current-left">
                     <span className="big-icon">{selected.icon}</span>
                     <div className="location">
@@ -21,7 +21,7 @@ export default function WeatherToday({ cityData, selectedIndex, onSelectDay }) {
                 <div className="current-right">
                     <span className="temp-now">{selected.temp}°</span>
                 </div>
-            </div>
+            </article>
 
             <ForecastDays
                 forecast={cityData.forecast}

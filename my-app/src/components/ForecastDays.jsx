@@ -3,18 +3,17 @@ import React, { useEffect, useState } from "react";
 export default function ForecastDays({ forecast, selectedIndex, onSelect }) {
     const [daysToShow, setDaysToShow] = useState(5);
 
-    // Detecta el tamaño de pantalla y ajusta el número de días
     useEffect(() => {
         const updateDays = () => {
-            if (window.innerWidth <= 814) {
-                setDaysToShow(5);  // Vista móvil
+            if (window.innerWidth <= 900) {
+                setDaysToShow(5);
             } else {
-                setDaysToShow(10); // Vista escritorio
+                setDaysToShow(10);
             }
         };
 
-        updateDays(); // Se ejecuta al montar
-        window.addEventListener("resize", updateDays); // Se actualiza al redimensionar
+        updateDays();
+        window.addEventListener("resize", updateDays);
         return () => window.removeEventListener("resize", updateDays);
     }, []);
 
@@ -35,7 +34,7 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect }) {
     };
 
     return (
-        <div className="forecast-days">
+        <article className="forecast-days">
             {forecast.slice(0, daysToShow).map((item, index) => (
                 <button
                     key={index}
@@ -50,6 +49,6 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect }) {
                     <div className="day-temp">{item.temp}°</div>
                 </button>
             ))}
-        </div>
+        </article>
     );
 }

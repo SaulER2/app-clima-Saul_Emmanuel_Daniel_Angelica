@@ -6,11 +6,11 @@ export default function CountryCities({ cities, selectedIndex }) {
             {cities.map((city, index) => {
                 const forecast = city.forecast[selectedIndex];
                 return (
-                    <div className="weather-card small" key={index}>
+                    <article className="weather-card small" key={index}>
                         <span className="city">{city.name}</span>
                         <span className="icon">{forecast.icon}</span>
                         <span className="temp">{forecast.temp}°</span>
-                    </div>
+                    </article>
                 );
             })}
         </section>

@@ -26,7 +26,9 @@ export default function Footer({ view, goTo, favoritesCount, darkMode, toggleThe
             </nav>
 
             <footer className="desktop-only footer-info">
-                <p>© 2025 WeatherNow - Todos los derechos reservados</p>
+                <p>© 2025 Clima, Inc. "Clima" y el diseño del sol son marcas comerciales registradas de Clima, Inc. Todos los derechos reservados.</p>
+                <p>2025 &copy; All rights reserved</p>
+                <a className="footer-link" href="#terms">Términos de uso</a> | <a className="footer-link" href="#privacy">Política de privacidad</a> | <a className="footer-link" href="#cookies">Política de cookies</a>
             </footer>
         </>
     );
