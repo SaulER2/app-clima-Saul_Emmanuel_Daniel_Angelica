@@ -1,12 +1,16 @@
-import { useState } from 'react'
+import { useState, createContext, useContext, useEffect } from 'react'
 import Header from './components/Header.jsx'
 import WeatherToday from './components/WeatherToday.jsx'
 import PopularCities from './components/PopularCities.jsx'
 import CountryCities from './components/CountryCities.jsx'
 import MapAndDetails from './components/MapAndDetails.jsx'
+import Profile from './components/Profile.jsx'
+import Favorites from './components/Favorites.jsx'
 import Footer from './components/Footer.jsx'
-import { weatherData } from "./data/WeatherData";
-import './App.css'
+import { weatherData } from "./data/WeatherData"
+import './App.css';
+
+const WeatherContext = createContext(null);
 
 function App() {
   
@@ -15,6 +19,29 @@ function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [view, setView] = useState("home");
   const [favorites, setFavorites] = useState([]);
+  const [forecast, setForecast] = useState({});
+  const [city, setCity] = useState('')
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+
+  useEffect(() => {
+    console.log("Requesting geolocation...");
+    if("geolocation" in navigator) {
+      console.log('geo')
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&lang=es&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+          .then(response => response.json())
+          .then(data => {
+            setForecast(data)
+            setLatitude(place.location.lat)
+            setLongitude(place.location.lng)
+          });
+      });
+    } else {
+      console.log("Geolocalización no está disponible");
+    }
+  }, []);
 
   const toggleTheme = () => setDarkMode((s) => !s);
   const goTo = (v) => setView(v);
@@ -34,18 +61,20 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark-mode" : "app light-mode"}>
-      <Header onCityChange={handleCityChange} darkMode={darkMode} toggleTheme={toggleTheme} goTo={goTo} />
+      <Header setCity={setCity} setLatitude={setLatitude} setLongitude={setLongitude} setForecast={setForecast} onCityChange={handleCityChange} darkMode={darkMode} toggleTheme={toggleTheme} goTo={goTo} />
       
       <main className="main-content">
         {view === "home" && (
         <>
           <WeatherToday
             cityData={cityData}
+            city={city}
+            forecast={forecast}
             selectedIndex={selectedIndex}
             onSelectDay={setSelectedIndex}
           />
 
-          <MapAndDetails cityData={cityData} selectedIndex={selectedIndex} />
+          <MapAndDetails forecast={forecast} latitude={latitude} longitude={longitude} selectedIndex={selectedIndex} />
           
           <PopularCities popularCities={popularCities} selectedIndex={selectedIndex} />
 
@@ -55,30 +84,11 @@ function App() {
         )}
 
         {view === "favorites" && (
-          <section className="favorites-view">
-            <h2>Ciudades Favoritas</h2>
-            {favorites.length === 0 ? (
-              <p>No tienes ciudades favoritas aún.</p>
-            ) : (
-              <div className="favorites-grid">
-                {favorites.map((city, index) => (
-                  <div className="weather-card" key={index}>
-                    <span className="city">{city}</span>
-                    <span className="icon">-</span>
-                    <span className="temp">-</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </section>
+          <Favorites />
         )}
         
         {view === "profile" && (
-          <section className="profile-view">
-            <h2>Perfil de Usuario</h2>
-            <p>Opciones de configuración</p>
-            <button onClick={() => alert("Aquí se cambiaran las configuraciones")}>Editar Perfil</button>
-          </section>
+          <Profile />
         )}
       </main>
       <Footer
