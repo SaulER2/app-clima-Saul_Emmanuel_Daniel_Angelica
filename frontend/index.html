@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" href="/logo.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+  <script>
+    const attachShadow = Element.prototype.attachShadow;
+
+    Element.prototype.attachShadow = function (init) {
+      // Check if we are the new Google places autocomplete element...
+      if (this.localName === "gmp-place-autocomplete") {
+        // If we are, we need to override the default behaviour of attachShadow() to
+        // set the mode to open to allow us to crowbar a style element into the shadow DOM.
+        const shadow = attachShadow.call(this, {
+          ...init,
+          mode: "open",
+        });
+
+        const style = document.createElement("style");
+
+        // Apply our own styles to the shadow DOM.
+        style.textContent = `
+          .input-container button.clear-button svg path {
+          fill: #fff !important;
+          }
+          .input-container div.autocomplete-icon svg path {
+          fill: #fff !important;
+          }
+        input {
+            color: #fff;
+            background: transparent;
+        }
+        .focus-ring {
+            display: none !important;
+        }
+        .dropdown {
+            background: #fff !important;
+        }
+        .place-autocomplete-element-row .place-autocomplete-element-prediction-item-icon path {
+            fill: #000 !important;
+        }
+        .place-autocomplete-element-row .place-autocomplete-element-text-div .place-autocomplete-element-place-name {
+            color: #888 !important;
+        }
+        .place-autocomplete-element-row .place-autocomplete-element-text-div .place-autocomplete-element-place-result--matched {
+            color: #000 !important;
+        }
+        .dropdown>ul>li:hover {
+            background: #bbb !important;
+            cursor: pointer !important;
+        }
+        .place-autocomplete-element-row .place-autocomplete-element-text-div .place-autocomplete-element-place-details {
+            color: #444 !important;
+        }
+        .attributions {
+            display: none !important;
+        }
+        dialog input {
+            color: #fff;
+        }
+    `;
+
+        shadow.appendChild(style);
+
+        // Set the shadowRoot property to the new shadow root that has our styles in it.
+        return shadow;
+      }
+      // ...for other elements, proceed with the original behaviour of attachShadow().
+      return attachShadow.call(this, init);
+    };
+  </script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>

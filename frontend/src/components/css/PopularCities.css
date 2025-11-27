@@ -1,0 +1,33 @@
+.popular-cities {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.popular-card {
+    padding: 1rem;
+    border-radius: 3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.popular-top {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.city-name {
+    font-weight: 600;
+}
+
+@media (min-width: 900px) {
+    .popular-cities {
+        display: none;
+    }
+
+
+}

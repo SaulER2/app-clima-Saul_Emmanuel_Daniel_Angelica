@@ -1,0 +1,48 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 16px;
+    gap: 8px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.greeting {
+    margin: 0;
+    font-size: 18px;
+}
+
+.icon-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: inherit;
+}
+
+.light-mode .header {
+    color: #111;
+}
+
+.light-mode .greeting {
+    color: #111;
+}
+
+@media (min-width: 900px) {
+    .greeting {
+        margin: 0;
+        font-family: 'Inter', 'Bold';
+        font-size: 30px;
+    }
+}
