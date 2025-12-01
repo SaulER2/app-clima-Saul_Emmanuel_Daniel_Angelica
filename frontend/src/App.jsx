@@ -26,11 +26,12 @@ function App() {
 
   useEffect(() => {
     console.log("Requesting geolocation...");
+    fetch
     if ("geolocation" in navigator) {
       console.log('geo')
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=metric&lang=es&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+        fetch(`http://0.0.0.0:9000/api/weather/forecast?lat=${latitude}&lon=${longitude}`)
           .then(response => response.json())
           .then(data => {
             setForecast(data)

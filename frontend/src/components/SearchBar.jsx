@@ -29,7 +29,7 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
         const placeJson = place.toJSON();
         setCity(placeJson.displayName);
         console.log(placeJson);
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${place.location.lat()}&lon=${place.location.lng()}&units=metric&lang=es&appid=${import.meta.env.VITE_WEATHER_API_KEY}`)
+        fetch(`http://0.0.0.0:9000/api/weather/forecast?lat=${place.location.lat()}&lon=${place.location.lng()}`)
           .then(response => response.json())
           .then(data => setForecast(data))
           .then(setLatitude(place.location.lat))
