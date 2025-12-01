@@ -1,0 +1,56 @@
+.air-good {
+    color: #84FF71;
+}
+
+.air-moderate {
+    color: yellow;
+}
+
+.air-bad {
+    color: red;
+}
+
+
+.weather-details-row {
+    display: flex;
+    padding: 6px 0;
+}
+
+
+
+@media (min-width: 900px) {
+
+    .map-info-container.desktop-only {
+        margin-top: 18px;
+        display: flex;
+        gap: 12px;
+        border-radius: 1rem;
+        align-items: flex-start;
+        flex-direction: row;
+        background-color: #2C3045;
+    }
+
+    .map-placeholder {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+
+    .weather-details {
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 400;
+        font-size: 20px;
+        margin-bottom: 1rem;
+        background-color: none;
+        flex: 1;
+    }
+
+    .weather-details>div:nth-child(3) {
+        border-bottom: white 1px solid;
+        border-top: white 1px solid;
+    }
+
+    .light-mode .map-info-container {
+        background-color: #F5F5F5;
+    }
+}

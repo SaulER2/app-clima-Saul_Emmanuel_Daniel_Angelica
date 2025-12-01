@@ -2,8 +2,8 @@ import { useState, createContext, useContext, useEffect } from 'react'
 import Header from './components/Header.jsx'
 import WeatherToday from './components/WeatherToday.jsx'
 import PopularCities from './components/PopularCities.jsx'
-import CountryCities from './components/CountryCities.jsx'
 import MapAndDetails from './components/MapAndDetails.jsx'
+import CountryCities from './components/CountryCities.jsx'
 import Profile from './components/Profile.jsx'
 import Favorites from './components/Favorites.jsx'
 import Footer from './components/Footer.jsx'
@@ -13,7 +13,7 @@ import './App.css';
 const WeatherContext = createContext(null);
 
 function App() {
-  
+
   const [currentCityKey, setCurrentCityKey] = useState("currentCity");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [darkMode, setDarkMode] = useState(true);
@@ -26,7 +26,7 @@ function App() {
 
   useEffect(() => {
     console.log("Requesting geolocation...");
-    if("geolocation" in navigator) {
+    if ("geolocation" in navigator) {
       console.log('geo')
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
@@ -61,32 +61,43 @@ function App() {
 
   return (
     <div className={darkMode ? "app dark-mode" : "app light-mode"}>
-      <Header setCity={setCity} setLatitude={setLatitude} setLongitude={setLongitude} setForecast={setForecast} onCityChange={handleCityChange} darkMode={darkMode} toggleTheme={toggleTheme} goTo={goTo} />
-      
+      <Header
+        setCity={setCity}
+        setLatitude={setLatitude}
+        setLongitude={setLongitude}
+        setForecast={setForecast}
+        onCityChange={handleCityChange}
+        darkMode={darkMode}
+        toggleTheme={toggleTheme}
+        goTo={goTo}
+      />
+
+
       <main className="main-content">
         {view === "home" && (
-        <>
-          <WeatherToday
-            cityData={cityData}
-            city={city}
-            forecast={forecast}
-            selectedIndex={selectedIndex}
-            onSelectDay={setSelectedIndex}
-          />
+          <>
+            <WeatherToday
+              cityData={cityData}
+              city={city}
+              forecast={forecast}
+              selectedIndex={selectedIndex}
+              onSelectDay={setSelectedIndex}
+              darkMode={darkMode}
+            />
 
-          <MapAndDetails forecast={forecast} latitude={latitude} longitude={longitude} selectedIndex={selectedIndex} />
-          
-          <PopularCities popularCities={popularCities} selectedIndex={selectedIndex} />
+            <MapAndDetails forecast={forecast} latitude={latitude} longitude={longitude} selectedIndex={selectedIndex} />
 
-          <CountryCities cities={countryCities} selectedIndex={selectedIndex} />
+            <PopularCities popularCities={popularCities} selectedIndex={selectedIndex} />
 
-        </>
+            <CountryCities cities={countryCities} selectedIndex={selectedIndex} />
+
+          </>
         )}
 
         {view === "favorites" && (
           <Favorites />
         )}
-        
+
         {view === "profile" && (
           <Profile />
         )}
@@ -97,7 +108,7 @@ function App() {
         favoritesCount={favorites.length}
         darkMode={darkMode}
         toggleTheme={toggleTheme}
-      />  
+      />
     </div>
   );
 }

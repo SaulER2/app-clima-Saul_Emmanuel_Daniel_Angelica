@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { weatherData } from "../data/WeatherData";
+import "./css/SearchBar.css";
 
 export default function SearchBar({ onCityChange, setForecast, setCity, setLatitude, setLongitude }) {
   const [query, setQuery] = useState("");
@@ -10,10 +11,10 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
     c.toLowerCase().includes(query.toLowerCase())
   );
 
-  useEffect( () => {
+  useEffect(() => {
     function handleClick(e) {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
-      
+
     }
     (async () => {
       // Request needed libraries.
@@ -33,32 +34,32 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
           .then(data => setForecast(data))
           .then(setLatitude(place.location.lat))
           .then(setLongitude(place.location.lng))
-    });
-    
-    const geocoder = new google.maps.Geocoder();
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const latlng = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        geocoder.geocode({ location: latlng }, (results, status) => {
-          if (status === "OK") {
-            if (results[0]) {
-              // get locality from results[0]
-              const locality = results[0].address_components.find(component => component.types.includes("locality"));
-              setCity(locality.long_name)
-              console.log(locality)
-              ref.current.querySelector('gmp-place-autocomplete').shadowRoot.querySelector('input').value = locality.long_name
-            } else {
-              console.log("No se encontraron resultados");
-            }
-          } else {
-            console.log("Error en la geocodificación:", status);
-          }
-        });
       });
-    }
+
+      const geocoder = new google.maps.Geocoder();
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const latlng = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          };
+          geocoder.geocode({ location: latlng }, (results, status) => {
+            if (status === "OK") {
+              if (results[0]) {
+                // get locality from results[0]
+                const locality = results[0].address_components.find(component => component.types.includes("locality"));
+                setCity(locality.long_name)
+                console.log(locality)
+                ref.current.querySelector('gmp-place-autocomplete').shadowRoot.querySelector('input').value = locality.long_name
+              } else {
+                console.log("No se encontraron resultados");
+              }
+            } else {
+              console.log("Error en la geocodificación:", status);
+            }
+          });
+        });
+      }
     })();
     window.addEventListener("click", handleClick);
 
@@ -67,7 +68,7 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
 
   return (
     <div className="searchbar-custom" ref={ref}>
-      
+
       {/*<input
         className="search-input"
         placeholder="Buscar ciudad"

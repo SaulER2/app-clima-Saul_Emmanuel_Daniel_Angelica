@@ -1,0 +1,46 @@
+.country-cities {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.weather-card.small {
+    display: grid;
+    grid-template-columns: 5fr 3fr 1fr;
+    justify-content: space-between;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #0B0C1E;
+}
+
+@media (min-width: 900px) {
+
+    .country-cities.desktop-only {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        border-radius: 1rem;
+        padding: 1rem;
+        background-color: #2C3045;
+    }
+
+    .light-mode .country-cities.desktop-only {
+        background-color: gray;
+    }
+
+    .city {
+        font-weight: 400;
+        font-size: 28px;
+    }
+
+    .icon {
+        font-size: 28px;
+    }
+
+    .temp {
+        font-weight: 100;
+        font-size: 30px;
+    }
+
+
+}

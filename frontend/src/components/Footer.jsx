@@ -1,4 +1,5 @@
 import React from "react";
+import "./css/Footer.css";
 
 export default function Footer({ view, goTo, favoritesCount, darkMode, toggleTheme }) {
     return (
@@ -20,7 +21,7 @@ export default function Footer({ view, goTo, favoritesCount, darkMode, toggleThe
                 </button>
 
                 <button className="nav-btn" onClick={toggleTheme}>
-                    <img src={`https://img.icons8.com/ios/50/${darkMode ? "ffffff" : "000000"}/${darkMode ? "moon" : "sun"}.png`} alt="theme"/>
+                    <img src={`https://img.icons8.com/ios/50/${darkMode ? "ffffff" : "000000"}/${darkMode ? "moon" : "sun"}.png`} alt="theme" />
                     <span>Theme</span>
                 </button>
             </nav>

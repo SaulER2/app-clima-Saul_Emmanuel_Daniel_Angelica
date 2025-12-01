@@ -1,4 +1,5 @@
 import React from "react";
+import "./css/CountryCities.css";
 
 export default function CountryCities({ cities, selectedIndex }) {
     return (

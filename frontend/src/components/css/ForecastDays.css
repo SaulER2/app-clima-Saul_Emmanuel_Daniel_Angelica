@@ -1,0 +1,90 @@
+@media (max-width: 899px) {
+
+    .forecast-days {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 5rem;
+        padding-top: 5rem;
+        overflow-x: auto;
+
+
+    }
+
+    .temp-day {
+        font-weight: 700;
+        font-size: 36px;
+    }
+
+    .day-icon {
+        display: none;
+    }
+
+    .day-temp {
+        display: none;
+    }
+
+    .day-pill {
+        background-color: #0B0C1E;
+        color: #fff;
+        border: none;
+        font-weight: 400;
+        font-size: 20px;
+    }
+
+    .day-pill.active {
+        background-color: #6B5DD3;
+        border-radius: 2rem;
+        padding: 1rem;
+    }
+
+}
+
+
+
+@media (min-width: 900px) {
+    .forecast-days {
+        justify-content: center;
+        display: flex;
+        gap: 8px;
+        padding-bottom: 0.5rem;
+        padding-top: 0.5rem;
+        overflow-x: auto;
+        margin-top: 14px;
+        border-radius: 1rem;
+        background-color: #1B1D2E;
+        gap: 6rem;
+    }
+
+    .day-pill {
+        width: 5.5rem;
+        height: 10rem;
+        background-color: #2C3045;
+        border-radius: 3rem;
+        padding: 8px;
+        border: none;
+        color: inherit;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+
+    }
+
+    .day-pill.active {
+        background: rgba(255, 255, 255, 0.18);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .days-forecasts {
+        display: none;
+    }
+
+
+
+}
+
+.light-mode .day-pill.active {
+    background: #e8f0ff;
+    color: #111;
+}
