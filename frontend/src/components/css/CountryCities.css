@@ -18,17 +18,28 @@
 
     .country-cities.desktop-only {
         display: grid;
-        font-family: 'Inter', 'Regular';
-        font-size: 30px;
         grid-template-columns: repeat(2, 1fr);
         border-radius: 1rem;
         padding: 1rem;
         background-color: #2C3045;
     }
 
+    .light-mode .country-cities.desktop-only {
+        background-color: gray;
+    }
+
+    .city {
+        font-weight: 400;
+        font-size: 28px;
+    }
+
+    .icon {
+        font-size: 28px;
+    }
 
     .temp {
-        font-family: 'Inter', 'Bold';
+        font-weight: 100;
+        font-size: 30px;
     }
 
 

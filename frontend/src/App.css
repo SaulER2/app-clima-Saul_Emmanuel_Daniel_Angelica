@@ -7,7 +7,7 @@ html,
 #root {
   height: 100%;
   margin: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter';
 }
 
 .app {
@@ -22,7 +22,7 @@ html,
 }
 
 .dark-mode {
-  background: linear-gradient(to bottom, #1B1D2E, #1a1a40);
+  background: #0B0C1E;
   color: #fff;
 }
 
@@ -49,5 +49,10 @@ html,
     max-width: 1100px;
     margin: 0 auto;
     width: 80vw;
+  }
+
+  .dark-mode {
+    background: #1B1D2E;
+    color: #fff;
   }
 }

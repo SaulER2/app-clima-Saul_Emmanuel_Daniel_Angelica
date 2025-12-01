@@ -38,7 +38,7 @@
     .weather-details {
         padding: 12px;
         border-radius: 12px;
-        font-family: 'Inter', 'Regular';
+        font-weight: 400;
         font-size: 20px;
         margin-bottom: 1rem;
         background-color: none;
@@ -48,5 +48,9 @@
     .weather-details>div:nth-child(3) {
         border-bottom: white 1px solid;
         border-top: white 1px solid;
+    }
+
+    .light-mode .map-info-container {
+        background-color: #F5F5F5;
     }
 }

@@ -42,7 +42,7 @@
 @media (min-width: 900px) {
     .greeting {
         margin: 0;
-        font-family: 'Inter', 'Bold';
+        font-weight: 700;
         font-size: 30px;
     }
 }

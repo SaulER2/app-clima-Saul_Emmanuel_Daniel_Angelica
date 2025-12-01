@@ -1,18 +1,35 @@
 .popular-cities {
     margin-top: 16px;
     display: grid;
+
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 2.5rem;
+    overflow-x: auto;
 }
 
 .popular-card {
-    padding: 1rem;
-    border-radius: 3rem;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    border-radius: 4rem;
+    min-width: 30rem;
     cursor: pointer;
     transition: 0.3s;
-    background: rgba(255, 255, 255, 0.02);
+    background-color: #1B1D2E;
 }
+
+.popular-card-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 5rem;
+
+}
+
+.city-icon {
+    font-size: 60px;
+
+}
+
 
 .popular-top {
     display: flex;
@@ -22,7 +39,16 @@
 
 .city-name {
     font-weight: 600;
+    font-size: 25px;
+
 }
+
+.popular-temp {
+    font-weight: 700;
+    font-size: 35px;
+}
+
+
 
 @media (min-width: 900px) {
     .popular-cities {

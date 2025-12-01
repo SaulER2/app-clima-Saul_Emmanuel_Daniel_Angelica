@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./css/ForecastDays.css";
 
-export default function ForecastDays({ forecast, selectedIndex, onSelect }) {
+export default function ForecastDays({ forecast, selectedIndex, onSelect, cityData, city }) {
     const [daysToShow, setDaysToShow] = useState(5);
-
+    const selected = cityData;
     useEffect(() => {
         const updateDays = () => {
             if (window.innerWidth <= 900) {
@@ -39,6 +39,7 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect }) {
     };
 
     return (
+
         <article className="forecast-days">
             {
                 forecast.list && forecast.list.map((item, index) => {
@@ -70,19 +71,20 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect }) {
                 })
             }
             {/*forecast.slice(0, daysToShow).map((item, index) => (
-                <button
-                    key={index}
-                    onClick={() => onSelect(index)}
-                    className={(selectedIndex === index ? "active" : "") + " day-pill"}
-                    title={`${getDayName(index)} - ${item.temp}°`}
-                >
-                    <div className="day-label">
-                        {index === 0 ? "Hoy" : getDayName(index)}
-                    </div>
-                    <div className="day-icon">{item.icon}</div>
-                    <div className="day-temp">{item.temp}°</div>
-                </button>
-            ))*/}
+                    <button
+                        key={index}
+                        onClick={() => onSelect(index)}
+                        className={(selectedIndex === index ? "active" : "") + " day-pill"}
+                        title={`${getDayName(index)} - ${item.temp}°`}
+                    >
+                        <div className="day-label">
+                            {index === 0 ? "Hoy" : getDayName(index)}
+                        </div>
+                        <div className="day-icon">{item.icon}</div>
+                        <div className="day-temp">{item.temp}°</div>
+                    </button>
+                ))*/}
         </article>
+
     );
 }
