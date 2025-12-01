@@ -5,7 +5,7 @@
     bottom: 0;
     display: flex;
     justify-content: space-around;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 1);
     padding: 8px 6px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;

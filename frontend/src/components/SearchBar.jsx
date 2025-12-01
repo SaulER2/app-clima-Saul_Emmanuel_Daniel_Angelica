@@ -29,7 +29,7 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
         const placeJson = place.toJSON();
         setCity(placeJson.displayName);
         console.log(placeJson);
-        fetch(`http://0.0.0.0:9000/api/weather/forecast?lat=${place.location.lat()}&lon=${place.location.lng()}`)
+        fetch(`http://localhost:9000/api/weather/forecast?lat=${place.location.lat()}&lon=${place.location.lng()}`)
           .then(response => response.json())
           .then(data => setForecast(data))
           .then(setLatitude(place.location.lat))

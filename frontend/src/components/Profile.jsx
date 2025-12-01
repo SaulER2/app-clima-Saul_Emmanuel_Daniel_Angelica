@@ -10,7 +10,7 @@ export default function Profile() {
     const [showRegister, setShowRegister] = useState(false);
 
     const [loginData, setLoginData] = useState({ email: "", password: "" });
-    const [registerData, setRegisterData] = useState({ name: "", email: "", password: "" });
+    const [registerData, setRegisterData] = useState({ name: "", email: "", password: "", password_confirmation: "" });
 
     // ============================
     //      CARGAR USUARIO
@@ -184,6 +184,14 @@ export default function Profile() {
                                     placeholder="Contraseña"
                                     value={registerData.password}
                                     onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
+                                    style={styles.input}
+                                    required
+                                />
+                                <input
+                                    type="password"
+                                    placeholder="Confirmar Contraseña"
+                                    value={registerData.password_confirmation}
+                                    onChange={(e) => setRegisterData({ ...registerData, password_confirmation: e.target.value })}
                                     style={styles.input}
                                     required
                                 />

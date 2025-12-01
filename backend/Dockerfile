@@ -12,8 +12,6 @@ RUN pecl install redis \
 FROM base AS development
 WORKDIR /var/www/html
 COPY . .
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
-RUN composer install
 EXPOSE 9000
 CMD ["php-fpm"]
 
@@ -21,7 +19,5 @@ CMD ["php-fpm"]
 FROM base AS production
 WORKDIR /var/www/html
 COPY . .
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-RUN composer install --no-dev --optimize-autoloader
 EXPOSE 9000
 CMD ["php-fpm"]

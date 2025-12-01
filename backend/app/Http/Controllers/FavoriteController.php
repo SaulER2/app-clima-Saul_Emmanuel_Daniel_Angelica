@@ -14,6 +14,8 @@ class FavoriteController extends Controller
 
     public function store(Request $request)
     {
+        error_log('Agregando favorito para usuario ' . $request->user()->id);
+        error_log('Datos recibidos: ' . json_encode($request->all()));
         $data = $request->validate([
             'name'      => 'required|string',
             'latitude'  => 'required|numeric',

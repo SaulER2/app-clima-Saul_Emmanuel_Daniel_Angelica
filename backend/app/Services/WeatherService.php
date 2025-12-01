@@ -15,7 +15,7 @@ class WeatherService
         // 1. Consultar caché (3 horas)
         error_log('Consultando caché para ' . $lat . ', ' . $lon);
         error_log('Clave de caché: ' . $cacheKey);
-        error_log('Contenido de caché: ' . json_encode(Cache::get($cacheKey)));
+        error_log('Contenido de caché: ' . Cache::has($cacheKey));
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }

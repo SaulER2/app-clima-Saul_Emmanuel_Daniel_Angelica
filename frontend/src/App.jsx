@@ -31,12 +31,12 @@ function App() {
       console.log('geo')
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        fetch(`http://0.0.0.0:9000/api/weather/forecast?lat=${latitude}&lon=${longitude}`)
+        fetch(`http://localhost:9000/api/weather/forecast?lat=${latitude}&lon=${longitude}`)
           .then(response => response.json())
           .then(data => {
             setForecast(data)
-            setLatitude(place.location.lat)
-            setLongitude(place.location.lng)
+            setLatitude(latitude)
+            setLongitude(longitude)
           });
       });
     } else {
@@ -79,6 +79,8 @@ function App() {
           <>
             <WeatherToday
               cityData={cityData}
+        latitude={latitude}
+        longitude={longitude}
               city={city}
               forecast={forecast}
               selectedIndex={selectedIndex}

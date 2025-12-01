@@ -35,7 +35,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Favoritos
     Route::get('/favorites',          [FavoriteController::class, 'index']);
-    Route::post('/favorites',         [FavoriteController::class, 'store']);
+    Route::post('/favorites', function() {
+        return response()->json(['message' => 'algo']);
+    }         /*[FavoriteController::class, 'store']*/);
     Route::delete('/favorites/{id}',  [FavoriteController::class, 'destroy']);
 
     // Historial
