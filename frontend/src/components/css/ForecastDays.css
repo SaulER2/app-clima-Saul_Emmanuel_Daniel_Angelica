@@ -23,12 +23,14 @@
         display: none;
     }
 
+
     .day-pill {
         background-color: #0B0C1E;
         color: #fff;
         border: none;
+        margin: 1rem;
         font-weight: 400;
-        font-size: 20px;
+        font-size: 30px;
     }
 
     .day-pill.active {
@@ -78,6 +80,10 @@
 
     .days-forecasts {
         display: none;
+    }
+
+    .day-label {
+        font-weight: 700;
     }
 
 
