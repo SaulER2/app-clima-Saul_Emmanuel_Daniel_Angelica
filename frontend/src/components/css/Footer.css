@@ -41,4 +41,11 @@
         border-top-left-radius: 1rem;
         border-top-right-radius: 1rem;
     }
+
+    .light-mode .footer-info {
+        background-color: #e8f0ff;
+        border-top-left-radius: 1rem;
+        border-top-right-radius: 1rem;
+        color: #111;
+    }
 }

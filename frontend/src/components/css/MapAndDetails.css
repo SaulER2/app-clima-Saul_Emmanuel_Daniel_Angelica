@@ -51,6 +51,10 @@
     }
 
     .light-mode .map-info-container {
-        background-color: #F5F5F5;
+        background-color: #1B1D2E;
+    }
+
+    .light-mode .weather-details {
+        color: #fff;
     }
 }

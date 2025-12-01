@@ -7,7 +7,6 @@
         padding-top: 5rem;
         overflow-x: auto;
 
-
     }
 
     .temp-day {
@@ -37,6 +36,17 @@
         background-color: #6B5DD3;
         border-radius: 2rem;
         padding: 1rem;
+    }
+
+    .light-mode .day-pill.active {
+        background-color: #6B5DD3;
+        border-radius: 2rem;
+        padding: 1rem;
+    }
+
+    .light-mode .day-pill {
+        background-color: #e8f0ff;
+        color: #111;
     }
 
 }
@@ -86,11 +96,16 @@
         font-weight: 700;
     }
 
+    .light-mode .day-pill {
+        background-color: #e8f0ff;
+        color: #111;
+    }
 
+    .light-mode .day-pill.active {
+        background-color: #2C3045;
+        border-radius: 3rem;
+        padding: 1rem;
+        color: #fff;
+    }
 
-}
-
-.light-mode .day-pill.active {
-    background: #e8f0ff;
-    color: #111;
 }

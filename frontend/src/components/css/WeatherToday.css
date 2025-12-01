@@ -34,12 +34,14 @@
     .place {
         font-weight: 600;
         font-size: 40px;
+        color: #fff;
     }
 
     .temp-now {
 
         font-size: 50px;
         font-weight: 700;
+        color: #fff;
     }
 
     .big-icon>img {
@@ -60,6 +62,12 @@
     .description {
         display: none;
     }
+
+    .ligth.current-weather {
+        background-color: #1B1D2E;
+    }
+
+
 }
 
 @media (min-width: 900px) {
@@ -128,5 +136,16 @@
     .description {
         display: flex;
     }
+
+    .light-mode .current-weather {
+        color: #fff;
+    }
+
+    .light-mode .weather-today {
+        background-color: #e8f0ff;
+        border: none;
+    }
+
+
 
 }

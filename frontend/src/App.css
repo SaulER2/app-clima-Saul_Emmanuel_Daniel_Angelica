@@ -17,7 +17,7 @@ html,
 }
 
 .light-mode {
-  background: linear-gradient(to bottom, #e8f0ff, #ffffff);
+  background: #e8f0ff;
   color: #111;
 }
 

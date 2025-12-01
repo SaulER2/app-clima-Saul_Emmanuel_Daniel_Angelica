@@ -25,7 +25,11 @@
     }
 
     .light-mode .country-cities.desktop-only {
-        background-color: gray;
+        background-color: #e8f0ff;
+    }
+
+    .light-mode .weather-card.small {
+        color: #fff;
     }
 
     .city {

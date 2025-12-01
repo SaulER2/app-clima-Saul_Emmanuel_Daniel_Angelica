@@ -1,11 +1,13 @@
 .popular-cities {
     margin-top: 16px;
+    margin-left: 2rem;
     display: grid;
-
     grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
     overflow-x: auto;
 }
+
+
 
 .popular-card {
     display: grid;
@@ -58,6 +60,13 @@
     margin: 20px;
 }
 
+.localidades {
+    margin-left: 2rem;
+    font-size: 40px;
+    font-weight: 600;
+}
+
+
 
 
 @media (min-width: 900px) {
@@ -70,4 +79,8 @@
     }
 
 
+}
+
+.light-mode .popular-card-left {
+    color: #fff;
 }
