@@ -20,7 +20,7 @@ Route::post('/auth/login',    [AuthController::class, 'login']);
 // Consultas de clima sin autenticación (si lo permites)
 Route::get('/weather/forecast', [WeatherController::class, 'forecast']);
 
-
+Route::get('/weather/popular-cities', [WeatherController::class, 'popularCities']);
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +35,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Favoritos
     Route::get('/favorites',          [FavoriteController::class, 'index']);
-    Route::post('/favorites', function() {
-        return response()->json(['message' => 'algo']);
-    }         /*[FavoriteController::class, 'store']*/);
-    Route::delete('/favorites/{id}',  [FavoriteController::class, 'destroy']);
+    Route::post('/favorites', [FavoriteController::class, 'store']);
+    Route::delete('/favorites/{favorite}',  [FavoriteController::class, 'destroy']);
 
     // Historial
     Route::get('/weather/history',    [WeatherHistoryController::class, 'index']);

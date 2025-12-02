@@ -34,19 +34,21 @@ class WeatherHistoryController extends Controller
         $request->validate([
             'lat' => 'required|numeric',
             'lon' => 'required|numeric',
+            'city_name' => 'required|string'
         ]);
 
         $lat = $request->lat;
         $lon = $request->lon;
+        $cityName = $request->city_name;
 
-        $history = WeatherHistory::where('lat', $lat)
-            ->where('lon', $lon)
+        $history = WeatherHistory::where('city_name', $cityName)
             ->orderBy('queried_at', 'desc')
             ->get();
 
         return response()->json([
             'lat'   => $lat,
             'lon'   => $lon,
+            'city_name' => $cityName,
             'count' => $history->count(),
             'data'  => $history
         ]);

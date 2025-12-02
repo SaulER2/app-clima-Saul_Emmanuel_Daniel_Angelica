@@ -1,28 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./css/WeatherToday.css";
 import ForecastDays from "./ForecastDays";
+import weatherIcons from "../data/weatherIcons";
 
-export default function WeatherToday({ cityData, selectedIndex, onSelectDay, forecast, city, darkMode, latitude, longitude }) {
+export default function WeatherToday({ cityData, favorites, selectedIndex, onSelectDay, forecast, city, darkMode, latitude, longitude }) {
     const selected = cityData.forecast[selectedIndex];
     const [isFavorite, setIsFavorite] = useState(false);
-    console.log(cityData);
+    const [favoriteId, setFavoriteId] = useState(null);
     const mainSectionClass = `weather-today ${darkMode ? "" : "weather-today-light"}`;
+
+    useEffect(() => {
+        // Comprobar si la ciudad ya está en favoritos
+        const checkFavorite = () => {
+                const found = favorites.some(fav => fav === city);
+                setIsFavorite(found);
+                if (found) {
+                    setFavoriteId(favorites.find(fav => fav === city).id);
+                }
+        };
+
+        checkFavorite();
+    }, [city, favorites]);
 
     const handleAddFavorite = async () => {
         try {
-            const token = localStorage.getItem("token");
-            console.log(latitude, longitude, 'city')
+            const token = localStorage.getItem("auth_token");
 
+            if(isFavorite) {
+                // Eliminar de favoritos
+                const res = await fetch(`http://localhost:9000/api/favorites/${favoriteId}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                    },
+                    credentials: "include",
+                });
+
+                if (!res.ok) {
+                    throw new Error("Error al eliminar favorito");
+                }
+
+                setIsFavorite(false);
+                setFavoriteId(null);
+                console.log("Ciudad eliminada de favoritos");
+                return;
+            }
             const res = await fetch("http://localhost:9000/api/favorites", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 credentials: "include",
                 body: JSON.stringify({
                     name: city,
-                    lat: latitude,
-                    lon: longitude,
+                    latitude: latitude,
+                    longitude: longitude,
                 }),
             });
 
@@ -41,12 +74,9 @@ export default function WeatherToday({ cityData, selectedIndex, onSelectDay, for
         <section className={mainSectionClass}>
             <article className="current-weather">
                 <div className="current-left">
-                    <span className="big-icon">
+                    <span className="big-icon" style={{ fontSize: "4rem" }}>
                         {forecast.list && (
-                            <img
-                                src={`https://openweathermap.org/img/wn/${forecast.list[selectedIndex * 8].weather[0].icon}@2x.png`}
-                                alt={forecast.list[selectedIndex * 8].weather[0].description}
-                            />
+                            weatherIcons[forecast.list[selectedIndex * 8].weather[0].icon]
                         )}
                     </span>
 
@@ -70,9 +100,10 @@ export default function WeatherToday({ cityData, selectedIndex, onSelectDay, for
                     <button
                         className="favorite-btn"
                         onClick={handleAddFavorite}
-                        disabled={isFavorite}
                     >
-                        {isFavorite ? "⭐ Guardado" : "☆ Guardar"}
+                        {!isFavorite && <i data-isFavorite={isFavorite} class="bi bi-heart"></i>}
+                        <i style={{ opacity: isFavorite ? 1 : 0 }} data-isFavorite={isFavorite} class="bi bi-heart-fill"></i>
+                        {isFavorite && <i class="bi bi-heartbreak-fill"></i>}
                     </button>
                 </div>
             </article>

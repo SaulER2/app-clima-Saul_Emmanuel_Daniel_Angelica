@@ -152,21 +152,33 @@
 
 
 .favorite-btn {
-    margin-top: 8px;
-    padding: 8px 14px;
-    font-size: 14px;
+    font-size: 2rem;
+    color: #880000;
     cursor: pointer;
-    background: #ffdd57;
     border: none;
+    background: none;
     border-radius: 6px;
     transition: 0.2s;
+    position: relative;
+    padding: 0;
+    outline: none;
+
+    i {
+        transition: opacity 0.2s;
+    }
+
+    .bi-heart, .bi-heartbreak-fill {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
 }
 
 .favorite-btn:hover {
-    background: #ffd43b;
-}
-
-.favorite-btn:disabled {
-    background: #cfcfcf;
-    cursor: not-allowed;
+    :first-child {
+        opacity: 0 !important;
+    }
+    :nth-child(2) {
+        opacity: 1 !important;
+    }
 }

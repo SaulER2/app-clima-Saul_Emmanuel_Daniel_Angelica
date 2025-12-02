@@ -29,4 +29,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    function favorites()
+    {
+        return $this->hasMany(Favorite::class);
+    }
 }

@@ -6,12 +6,36 @@
 }
 
 .weather-card.small {
-    display: grid;
-    grid-template-columns: 5fr 3fr 1fr;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    padding: 8px;
+    padding: 0.5rem 2rem;
     border-radius: 8px;
     background-color: #0B0C1E;
+}
+
+.weather-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 12px;
+}
+
+.weather-card .city {
+    flex: 1; /* Ocupa el espacio sobrante */
+    min-width: 0; /* Permite recorte si es muy largo */
+}
+
+.weather-card .icon {
+    width: 32px;     /* Fijar ancho para alinear iconos */
+    text-align: center;
+}
+
+.weather-card .temp {
+    width: 60px;     /* Ancho fijo para alinear temperaturas */
+    text-align: right;
+    white-space: nowrap;
 }
 
 @media (min-width: 900px) {

@@ -41,9 +41,19 @@ class WeatherService
 
         // 3. Guardar historial en base de datos
         error_log('Guardando historial de clima ' . $lat . ', ' . $lon);
+
+        // Revisar si la ciudad esta en el historial. De ser asi, obtener sus coordenadas
+        $history = WeatherHistory::where('lat', $lat)->where('lon', $lon)->first();
+
+        if ($history) {
+            $lat = $history->lat;
+            $lon = $history->lon;
+        }
+
         WeatherHistory::create([
             'lat' => $lat,
             'lon' => $lon,
+            'city_name' => $data['city']['name'],
             'response' => $data,
         ]);
 
@@ -51,5 +61,26 @@ class WeatherService
         Cache::put($cacheKey, $data, now()->addHours(3));
 
         return $data;
+    }
+
+    public function getPopularCitiesWeather()
+    {
+        // Get form weather history, most searched cities
+        $popularCities = WeatherHistory::select('city_name', 'lat', 'lon')
+            ->groupBy('city_name', 'lat', 'lon')
+            ->orderByRaw('COUNT(*) DESC')
+            ->limit(12)
+            ->get();
+
+        $results = [];
+
+        foreach ($popularCities as $city) {
+            $results[] = [
+                'city' => $city['city_name'],
+                'weather' => $this->getForecast($city['lat'], $city['lon']),
+            ];
+        }
+
+        return $results;
     }
 }

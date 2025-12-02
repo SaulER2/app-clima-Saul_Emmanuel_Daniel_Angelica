@@ -18,11 +18,11 @@ function App() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [darkMode, setDarkMode] = useState(true);
   const [view, setView] = useState("home");
-  const [favorites, setFavorites] = useState([]);
   const [forecast, setForecast] = useState({});
   const [city, setCity] = useState('')
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     console.log("Requesting geolocation...");
@@ -42,6 +42,30 @@ function App() {
     } else {
       console.log("Geolocalización no está disponible");
     }
+
+    // Cargar favoritos desde el backend
+    const fetchFavorites = async () => {
+      try {
+        const token = localStorage.getItem("auth_token");
+
+        const res = await fetch("http://localhost:9000/api/favorites", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+          credentials: "include",
+        });
+
+        if (!res.ok) {
+          throw new Error("Error al cargar favoritos");
+        }
+
+        const favoritesData = await res.json();
+        setFavorites(favoritesData.map(fav => fav.name));
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchFavorites();
   }, []);
 
   const toggleTheme = () => setDarkMode((s) => !s);
@@ -52,7 +76,6 @@ function App() {
   }
 
   const cityData = weatherData.currentCity;
-  const popularCities = weatherData.popularCities;
   const countryCities = weatherData.countryCities;
 
   const toggleFavorite = (cityName) =>
@@ -83,6 +106,7 @@ function App() {
         longitude={longitude}
               city={city}
               forecast={forecast}
+              favorites={favorites}
               selectedIndex={selectedIndex}
               onSelectDay={setSelectedIndex}
               darkMode={darkMode}
@@ -90,7 +114,7 @@ function App() {
 
             <MapAndDetails forecast={forecast} latitude={latitude} longitude={longitude} selectedIndex={selectedIndex} />
 
-            <PopularCities popularCities={popularCities} selectedIndex={selectedIndex} />
+            <PopularCities selectedIndex={selectedIndex} />
 
             <CountryCities cities={countryCities} selectedIndex={selectedIndex} />
 

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./css/ForecastDays.css";
+import weatherIcons from "../data/weatherIcons";
 
 export default function ForecastDays({ forecast, selectedIndex, onSelect, cityData, city }) {
     const [daysToShow, setDaysToShow] = useState(5);
@@ -56,10 +57,8 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect, cityDa
                                     {dayIndex === 0 ? "Hoy" : getDayName(dayIndex)}
                                 </div>
                                 <div className="day-icon">
-                                    <img
-                                        src={`https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png`}
-                                        alt={item.weather[0].description}
-                                    />
+                                    {console.log(getDayName(dayIndex), item.weather[0].icon)}
+                                    <span style={{ fontSize: "3rem" }}>{weatherIcons[item.weather[0].icon]}</span>
                                 </div>
                                 <div className="day-temp">
                                     {Math.round(item.main.temp)}°

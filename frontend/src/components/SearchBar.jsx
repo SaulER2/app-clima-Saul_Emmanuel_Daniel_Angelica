@@ -20,7 +20,9 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
       // Request needed libraries.
       await google.maps.importLibrary("places");
       // Create the input HTML element, and append it.
-      const placeAutocomplete = new google.maps.places.PlaceAutocompleteElement({});
+      const placeAutocomplete = new google.maps.places.PlaceAutocompleteElement({
+        includedPrimaryTypes: ["locality"],
+      });
       ref.current.innerHTML = "";
       ref.current.appendChild(placeAutocomplete);
       placeAutocomplete.addEventListener('gmp-select', async ({ placePrediction }) => {

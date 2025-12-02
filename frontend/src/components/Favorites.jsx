@@ -2,65 +2,70 @@ import React, { useEffect, useState } from "react";
 
 export default function Favorites({ onSelectFavorite }) {
     const [favorites, setFavorites] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    // Cargar favoritos desde localStorage
+    const API_URL = "http://localhost:9000/api/favorites";
+    const token = localStorage.getItem("auth_token"); // ← CORREGIDO
+
+    // Cargar favoritos desde API
     useEffect(() => {
-        const raw = localStorage.getItem("favorites");
-        try {
-            const parsed = raw ? JSON.parse(raw) : [];
-            setFavorites(Array.isArray(parsed) ? parsed : []);
-        } catch {
-            setFavorites([]);
-        }
+        const loadFavorites = async () => {
+            try {
+                const res = await fetch(API_URL, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        Accept: "application/json",
+                    },
+                });
 
-        // Si otros pestañas cambian los favoritos, actualizar la vista
-        const handleStorage = (e) => {
-            if (e.key === "favorites") {
-                try {
-                    const parsed = e.newValue ? JSON.parse(e.newValue) : [];
-                    setFavorites(Array.isArray(parsed) ? parsed : []);
-                } catch {
+                if (!res.ok) {
+                    console.error("Error al obtener favoritos", await res.text());
                     setFavorites([]);
+                } else {
+                    const data = await res.json();
+                    setFavorites(Array.isArray(data) ? data : []);
                 }
+            } catch (e) {
+                console.error("Error de red:", e);
+            } finally {
+                setLoading(false);
             }
         };
-        window.addEventListener("storage", handleStorage);
-        return () => window.removeEventListener("storage", handleStorage);
+
+        loadFavorites();
     }, []);
 
-    const saveFavorites = (next) => {
-        setFavorites(next);
-        localStorage.setItem("favorites", JSON.stringify(next));
-    };
-
-    const removeFavorite = (idOrIndex) => {
-        const next = favorites.filter((f, i) =>
-            // si hay id, comparar por id; si no, por índice
-            f && (f.id !== undefined ? f.id !== idOrIndex : i !== idOrIndex)
-        );
-        saveFavorites(next);
-    };
-
-    const clearFavorites = () => {
-        if (!favorites.length) return;
-        if (window.confirm("¿Eliminar todos los favoritos?")) {
-            setFavorites([]);
-            localStorage.removeItem("favorites");
-        }
-    };
-
-    const handleView = (fav) => {
-        if (typeof onSelectFavorite === "function") {
-            onSelectFavorite(fav);
-            return;
-        }
-        // Fallback: guardar seleccionado y navegar a inicio
+    // Eliminar favorito mediante API
+    const removeFavorite = async (id) => {
         try {
-            localStorage.setItem("selectedFavorite", JSON.stringify(fav));
-        } catch {}
-        // Ajusta la ruta si tu app usa otra
+            const res = await fetch(`${API_URL}/${id}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            if (res.ok) {
+                setFavorites((prev) => prev.filter((f) => f.id !== id));
+            } else {
+                console.error("Error al eliminar favorito");
+            }
+        } catch (e) {
+            console.error("Error de red:", e);
+        }
+    };
+
+    // Ver favorito
+    const handleView = (fav) => {
+        if (onSelectFavorite) return onSelectFavorite(fav);
+
+        localStorage.setItem("selectedFavorite", JSON.stringify(fav));
         window.location.href = "/";
     };
+
+    if (loading) {
+        return <div style={styles.container}>Cargando favoritos...</div>;
+    }
 
     return (
         <div style={styles.container}>
@@ -71,37 +76,29 @@ export default function Favorites({ onSelectFavorite }) {
             ) : (
                 <>
                     <ul style={styles.list}>
-                        {favorites.map((f, i) => {
-                            const key = f && f.id !== undefined ? f.id : i;
-                            return (
-                                <li key={key} style={styles.item}>
-                                    <div style={styles.info}>
-                                        <strong>{f?.name || "Sin nombre"}</strong>
-                                        {f?.country ? <span style={styles.meta}> — {f.country}</span> : null}
-                                        {f?.lat !== undefined && f?.lon !== undefined ? (
-                                            <div style={styles.coords}>
-                                                {f.lat.toFixed?.(3) ?? f.lat}, {f.lon.toFixed?.(3) ?? f.lon}
-                                            </div>
-                                        ) : null}
+                        {favorites.map((f) => (
+                            <li key={f.id} style={styles.item}>
+                                {console.log(f)}
+                                <div style={styles.info}>
+                                    <strong>{f.name}</strong>
+                                    <div style={styles.coords}>
+                                        {Number(f.latitude).toFixed(3)}, {Number(f.longitude).toFixed(3)}
                                     </div>
+                                </div>
 
-                                    <div style={styles.actions}>
-                                        <button style={styles.viewBtn} onClick={() => handleView(f)}>
-                                            Ver
-                                        </button>
-                                        <button style={styles.delBtn} onClick={() => removeFavorite(f.id ?? i)}>
-                                            Eliminar
-                                        </button>
-                                    </div>
-                                </li>
-                            );
-                        })}
+                                <div style={styles.actions}>
+                                    <button style={styles.viewBtn} onClick={() => handleView(f)}>
+                                        Ver
+                                    </button>
+                                    <button style={styles.delBtn} onClick={() => removeFavorite(f.id)}>
+                                        Eliminar
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
                     </ul>
 
                     <div style={styles.footer}>
-                        <button style={styles.clearBtn} onClick={clearFavorites}>
-                            Eliminar todos
-                        </button>
                         <span style={styles.count}>{favorites.length} favorito(s)</span>
                     </div>
                 </>
@@ -128,7 +125,6 @@ const styles = {
         borderBottom: "1px solid #eee",
     },
     info: { display: "flex", flexDirection: "column" },
-    meta: { color: "#666", fontWeight: 400, marginLeft: 6 },
     coords: { color: "#888", fontSize: 12, marginTop: 4 },
     actions: { display: "flex", gap: 8 },
     viewBtn: {
@@ -152,14 +148,6 @@ const styles = {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-    },
-    clearBtn: {
-        padding: "6px 10px",
-        background: "#6c757d",
-        color: "#fff",
-        border: "none",
-        borderRadius: 4,
-        cursor: "pointer",
     },
     count: { color: "#444" },
 };

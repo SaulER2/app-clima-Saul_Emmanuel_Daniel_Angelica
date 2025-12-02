@@ -14,15 +14,18 @@ export default function MapAndDetails({ cityData, selectedIndex, forecast, latit
                 <iframe src={`https://www.google.com/maps/embed/v1/place?key=${import.meta.env.VITE_GOOGLE_PLACES_API_KEY}&q=${lat},${lon}&zoom=5`} />
             </article>
             <article className='weather-details'>
-                <h3>Detalles</h3>
                 <div className='weather-details-row'>
-                    <span>Viento: {selected?.wind?.speed}</span>
+                    <span>Viento: </span>
+                    <span>{selected?.wind?.speed} Km/h</span>
                 </div>
                 <div className='weather-details-row'>
-                    <span>Ráfagas: {selected?.wind?.gust}</span>
+                    <span>Ráfagas: </span>
+                    <span>{selected?.wind?.gust} Km/h</span>
                 </div>
                 <div className='weather-details-row'>
+                    <span>
                     Calidad del aire:&nbsp;
+                    </span>
                     <span className={
                         selected?.main?.pressure > 1000 ? "air-good" :
                             selected?.main?.pressure > 1000 ? "air-moderate" :

@@ -28,4 +28,11 @@ class WeatherController extends Controller
             )
         );
     }
+
+    public function popularCities(Request $request)
+    {
+        return response()->json(
+            $this->service->getPopularCitiesWeather()
+        );
+    }
 }

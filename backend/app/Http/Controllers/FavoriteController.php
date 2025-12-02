@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Favorite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FavoriteController extends Controller
 {
@@ -15,13 +16,34 @@ class FavoriteController extends Controller
     public function store(Request $request)
     {
         error_log('Agregando favorito para usuario ' . $request->user()->id);
-        error_log('Datos recibidos: ' . json_encode($request->all()));
-        $data = $request->validate([
+
+        $validator = Validator::make($request->all(), [
+            'longitude' => 'required|numeric',
             'name'      => 'required|string',
             'latitude'  => 'required|numeric',
-            'longitude' => 'required|numeric',
         ]);
 
+        // Comprobar si hay errores de validación
+        if ($validator->fails()) {
+            return response()->json([
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        // 🔥 Verificar si ya existe este favorito para el usuario
+        $exists = Favorite::where('user_id', $request->user()->id)
+            ->where('name', $data['name'])
+            ->exists();
+
+        if ($exists) {
+            return response()->json([
+                'message' => 'Esta ciudad ya se encuentra en tus favoritos.'
+            ], 409); // 409 Conflict
+        }
+
+        // Crear favorito
         $favorite = $request->user()->favorites()->create($data);
 
         return response()->json($favorite, 201);
