@@ -8,14 +8,18 @@ use App\Models\WeatherHistory;
 
 class WeatherService
 {
-    public function getForecast($lat, $lon)
+public function getForecast($lat, $lon)
     {
+        $lat = round($lat, 3);
+        $lon = round($lon, 3);
+
         $cacheKey = "forecast_{$lat}_{$lon}";
 
         // 1. Consultar caché (3 horas)
         error_log('Consultando caché para ' . $lat . ', ' . $lon);
         error_log('Clave de caché: ' . $cacheKey);
         error_log('Contenido de caché: ' . Cache::has($cacheKey));
+
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
@@ -42,10 +46,11 @@ class WeatherService
         // 3. Guardar historial en base de datos
         error_log('Guardando historial de clima ' . $lat . ', ' . $lon);
 
-        // Revisar si la ciudad esta en el historial. De ser asi, obtener sus coordenadas
+        // Buscar coordenadas ya guardadas en historial (también redondeadas)
         $history = WeatherHistory::where('lat', $lat)->where('lon', $lon)->first();
 
         if ($history) {
+            // Usar las mismas coordenadas siempre
             $lat = $history->lat;
             $lon = $history->lon;
         }

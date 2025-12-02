@@ -19,10 +19,6 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect, cityDa
         return () => window.removeEventListener("resize", updateDays);
     }, []);
 
-    useEffect(() => {
-        console.log("Forecast data:", forecast);
-    }, [forecast]);
-
     const daysOfWeek = [
         "Domingo",
         "Lunes",
@@ -51,17 +47,16 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect, cityDa
                                 key={index}
                                 onClick={() => onSelect(dayIndex)}
                                 className={(selectedIndex === dayIndex ? "active" : "") + " day-pill"}
-                                title={`${getDayName(dayIndex)} - ${Math.round(item.main.temp)}°`}
+                                title={`${getDayName(dayIndex)} - ${(item.main.temp)}°`}
                             >
                                 <div className="day-label">
                                     {dayIndex === 0 ? "Hoy" : getDayName(dayIndex)}
                                 </div>
                                 <div className="day-icon">
-                                    {console.log(getDayName(dayIndex), item.weather[0].icon)}
                                     <span style={{ fontSize: "3rem" }}>{weatherIcons[item.weather[0].icon]}</span>
                                 </div>
                                 <div className="day-temp">
-                                    {Math.round(item.main.temp)}°
+                                    {(item.main.temp)}°
                                 </div>
                             </button>
                         );

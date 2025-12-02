@@ -23,14 +23,19 @@ function App() {
   const [latitude, setLatitude] = useState(null);
   const [longitude, setLongitude] = useState(null);
   const [favorites, setFavorites] = useState([]);
+  const [popularCities, setPopularCities] = useState([]);
 
-  useEffect(() => {
-    console.log("Requesting geolocation...");
-    fetch
-    if ("geolocation" in navigator) {
-      console.log('geo')
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
+  async function fetchPopularCities() {
+      try {
+          const res = await fetch("http://localhost:9000/api/weather/popular-cities");
+          if (!res.ok) throw new Error("Error al cargar ciudades populares");
+          const data = await res.json();
+          setPopularCities(data);
+      } catch (error) {
+          console.error(error);
+      }
+  };
+  function getForecast(latitude, longitude) {
         fetch(`http://localhost:9000/api/weather/forecast?lat=${latitude}&lon=${longitude}`)
           .then(response => response.json())
           .then(data => {
@@ -38,6 +43,18 @@ function App() {
             setLatitude(latitude)
             setLongitude(longitude)
           });
+  }
+
+  useEffect(() => {
+    getForecast(latitude, longitude);
+  }, [city]);
+
+  useEffect(() => {
+    fetchPopularCities();
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        getForecast(latitude, longitude);
       });
     } else {
       console.log("Geolocalización no está disponible");
@@ -60,7 +77,7 @@ function App() {
         }
 
         const favoritesData = await res.json();
-        setFavorites(favoritesData.map(fav => fav.name));
+        setFavorites(favoritesData);
       } catch (error) {
         console.error(error);
       }
@@ -114,9 +131,9 @@ function App() {
 
             <MapAndDetails forecast={forecast} latitude={latitude} longitude={longitude} selectedIndex={selectedIndex} />
 
-            <PopularCities selectedIndex={selectedIndex} />
+            <PopularCities popularCities={popularCities} selectedIndex={selectedIndex} setCity={setCity} setLatitude={setLatitude} setLongitude={setLongitude} />
 
-            <CountryCities cities={countryCities} selectedIndex={selectedIndex} />
+            <CountryCities popularCities={popularCities} cities={countryCities} selectedIndex={selectedIndex} setCity={setCity} setLatitude={setLatitude} setLongitude={setLongitude} />
 
           </>
         )}

@@ -2,9 +2,10 @@
     margin-top: 16px;
     margin-left: 2rem;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
     gap: 2.5rem;
     overflow-x: auto;
+    grid-auto-flow: column;
+    grid-template-rows: 1fr 1fr 1fr;
 }
 
 

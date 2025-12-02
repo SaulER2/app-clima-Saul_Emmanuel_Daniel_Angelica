@@ -12,10 +12,10 @@ export default function WeatherToday({ cityData, favorites, selectedIndex, onSel
     useEffect(() => {
         // Comprobar si la ciudad ya está en favoritos
         const checkFavorite = () => {
-                const found = favorites.some(fav => fav === city);
+                const found = favorites.some(fav => fav.name === city);
                 setIsFavorite(found);
                 if (found) {
-                    setFavoriteId(favorites.find(fav => fav === city).id);
+                    setFavoriteId(favorites.find(fav => fav.name === city).id);
                 }
         };
 
@@ -64,6 +64,7 @@ export default function WeatherToday({ cityData, favorites, selectedIndex, onSel
             }
 
             setIsFavorite(true);
+            setFavoriteId((await res.json()).id);
             console.log("Ciudad guardada como favorita");
         } catch (error) {
             console.error(error);
@@ -72,6 +73,7 @@ export default function WeatherToday({ cityData, favorites, selectedIndex, onSel
 
     return (
         <section className={mainSectionClass}>
+            {console.log("Rendering WeatherToday for city:", city, forecast)}
             <article className="current-weather">
                 <div className="current-left">
                     <span className="big-icon" style={{ fontSize: "4rem" }}>
@@ -101,8 +103,8 @@ export default function WeatherToday({ cityData, favorites, selectedIndex, onSel
                         className="favorite-btn"
                         onClick={handleAddFavorite}
                     >
-                        {!isFavorite && <i data-isFavorite={isFavorite} class="bi bi-heart"></i>}
-                        <i style={{ opacity: isFavorite ? 1 : 0 }} data-isFavorite={isFavorite} class="bi bi-heart-fill"></i>
+                        {!isFavorite && <i data-isfavorite={isFavorite} class="bi bi-heart"></i>}
+                        <i style={{ opacity: isFavorite ? 1 : 0 }} data-isfavorite={isFavorite} class="bi bi-heart-fill"></i>
                         {isFavorite && <i class="bi bi-heartbreak-fill"></i>}
                     </button>
                 </div>

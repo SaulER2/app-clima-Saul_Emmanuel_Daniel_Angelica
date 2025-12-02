@@ -78,7 +78,6 @@ export default function Favorites({ onSelectFavorite }) {
                     <ul style={styles.list}>
                         {favorites.map((f) => (
                             <li key={f.id} style={styles.item}>
-                                {console.log(f)}
                                 <div style={styles.info}>
                                     <strong>{f.name}</strong>
                                     <div style={styles.coords}>

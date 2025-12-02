@@ -30,7 +30,6 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
         await place.fetchFields({ fields: ['displayName', 'formattedAddress', 'location'] });
         const placeJson = place.toJSON();
         setCity(placeJson.displayName);
-        console.log(placeJson);
         fetch(`http://localhost:9000/api/weather/forecast?lat=${place.location.lat()}&lon=${place.location.lng()}`)
           .then(response => response.json())
           .then(data => setForecast(data))
@@ -51,13 +50,12 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
                 // get locality from results[0]
                 const locality = results[0].address_components.find(component => component.types.includes("locality"));
                 setCity(locality.long_name)
-                console.log(locality)
                 ref.current.querySelector('gmp-place-autocomplete').shadowRoot.querySelector('input').value = locality.long_name
               } else {
                 console.log("No se encontraron resultados");
               }
             } else {
-              console.log("Error en la geocodificación:", status);
+              ("Error en la geocodificación:", status);
             }
           });
         });

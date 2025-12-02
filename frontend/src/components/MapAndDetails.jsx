@@ -2,12 +2,9 @@ import React, { useEffect, useState } from 'react';
 import "./css/MapAndDetails.css";
 
 export default function MapAndDetails({ cityData, selectedIndex, forecast, latitude, longitude }) {
-    console.log(forecast)
     const selected = "list" in forecast ? forecast.list[selectedIndex] : {};
     const lat = latitude ?? forecast?.city?.coord?.lat;
     const lon = longitude ?? forecast?.city?.coord?.lon;
-    console.log(selected);
-    console.log(lat, lon);
     return (
         <section className='map-info-container desktop-only'>
             <article className='map-placeholder'>
