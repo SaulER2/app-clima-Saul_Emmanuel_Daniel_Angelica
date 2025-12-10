@@ -3,7 +3,7 @@ import useGreeting from "../hooks/useGreeting";
 import SearchBar from "./SearchBar";
 import "./css/Header.css";
 
-export default function Header({ onCityChange, darkMode, toggleTheme, goTo, setForecast, setCity }) {
+export default function Header({ onCityChange, darkMode, toggleTheme, goTo, setForecast, setCity, setLatitude, setLongitude }) {
     const greeting = useGreeting();
     return (
         <header className={`header ${darkMode ? "dark" : "light"}`}>
@@ -20,7 +20,7 @@ export default function Header({ onCityChange, darkMode, toggleTheme, goTo, setF
                     <img src={`https://img.icons8.com/ios/30/${darkMode ? "ffffff" : "000000"}/user.png`} alt="profile" />
                 </button>
                 <div className="header-actions">
-                    <SearchBar setCity={setCity} setForecast={setForecast} onCityChange={onCityChange} />
+                    <SearchBar setLatitude={setLatitude} setLongitude={setLongitude} setCity={setCity} setForecast={setForecast} onCityChange={onCityChange} />
                 </div>
                 <button className="icon-btn theme-btn desktop-only" onClick={toggleTheme} title="Cambiar tema">
                     {darkMode ? "🌙" : "☀️"}

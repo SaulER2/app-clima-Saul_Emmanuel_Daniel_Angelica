@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Favorites from "./Favorites";
 
 const API_URL = "http://localhost:9000/api";
 const TOKEN_KEY = "auth_token";
@@ -214,6 +215,7 @@ export default function Profile() {
                     <button style={{ ...styles.button, ...styles.primary }} onClick={handleLogout}>
                         Cerrar sesión
                     </button>
+                    <Favorites />
                 </div>
             )}
         </div>

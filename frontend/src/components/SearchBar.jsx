@@ -29,17 +29,16 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
         const place = placePrediction.toPlace();
         await place.fetchFields({ fields: ['displayName', 'formattedAddress', 'location'] });
         const placeJson = place.toJSON();
+        console.log("Selected place:", placeJson);
+        setLatitude(place.location.lat())
+        setLongitude(place.location.lng())
         setCity(placeJson.displayName);
-        fetch(`http://localhost:9000/api/weather/forecast?lat=${place.location.lat()}&lon=${place.location.lng()}`)
-          .then(response => response.json())
-          .then(data => setForecast(data))
-          .then(setLatitude(place.location.lat))
-          .then(setLongitude(place.location.lng))
-      });
 
       const geocoder = new google.maps.Geocoder();
+      /*
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) => {
+          console.log("Geolocation position:", position, "searcn");
           const latlng = {
             lat: position.coords.latitude,
             lng: position.coords.longitude
@@ -49,6 +48,8 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
               if (results[0]) {
                 // get locality from results[0]
                 const locality = results[0].address_components.find(component => component.types.includes("locality"));
+                setLatitude(position.coords.latitude)
+                setLongitude(position.coords.longitude)
                 setCity(locality.long_name)
                 ref.current.querySelector('gmp-place-autocomplete').shadowRoot.querySelector('input').value = locality.long_name
               } else {
@@ -60,6 +61,8 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
           });
         });
       }
+        */
+    })
     })();
     window.addEventListener("click", handleClick);
 
@@ -99,4 +102,4 @@ export default function SearchBar({ onCityChange, setForecast, setCity, setLatit
       )}*/}
     </div>
   );
-}
+  }

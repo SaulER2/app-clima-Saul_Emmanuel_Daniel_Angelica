@@ -5,7 +5,7 @@ import weatherIcons from "../data/weatherIcons";
 export default function CountryCities({ popularCities, selectedIndex, setCity, setLatitude, setLongitude }) {
     return (
         <>
-        <p style={{ display: 'block', marginLeft: "0.5rem" }} className='localidades'>Localidades Populares</p>
+        <p style={{ display: 'block', marginLeft: "0.5rem" }} className='localidades desktop-only'>Localidades Populares</p>
         <section className="country-cities desktop-only" id="country-cities">
             {popularCities.map((city, index) => {
                 const forecast = city.weather["list"][selectedIndex * 8];

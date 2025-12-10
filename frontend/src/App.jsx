@@ -13,8 +13,6 @@ import './App.css';
 const WeatherContext = createContext(null);
 
 function App() {
-
-  const [currentCityKey, setCurrentCityKey] = useState("currentCity");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [darkMode, setDarkMode] = useState(true);
   const [view, setView] = useState("home");
@@ -47,6 +45,12 @@ function App() {
 
   useEffect(() => {
     getForecast(latitude, longitude);
+    const input = document?.querySelector('gmp-place-autocomplete')?.shadowRoot?.querySelector("input")
+    if(!input?.value){
+      if(input) {
+        input.value = city
+      }
+    }
   }, [city]);
 
   useEffect(() => {
@@ -54,6 +58,7 @@ function App() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
+        console.log("Geolocation position:", position, "app");
         getForecast(latitude, longitude);
       });
     } else {

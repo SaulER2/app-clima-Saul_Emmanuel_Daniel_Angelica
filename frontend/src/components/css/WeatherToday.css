@@ -7,14 +7,12 @@
     }
 
     .current-weather {
-        display: grid;
         grid-template-columns: 2fr 1fr;
         background-color: #1B1D2E;
         border-radius: 2rem;
         border: none;
         gap: 12px;
-        margin-left: 3.5rem;
-        width: 80%;
+        width: fit-content;
         padding: 8px;
     }
 
@@ -152,6 +150,7 @@
 
 
 .favorite-btn {
+    padding-bottom: 1rem;
     font-size: 2rem;
     color: #880000;
     cursor: pointer;

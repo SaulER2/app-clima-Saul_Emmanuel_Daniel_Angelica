@@ -32,12 +32,18 @@ html,
 }
 
 .desktop-only {
-  display: none;
+  display: none !important;
 }
 
 @media (min-width: 900px) {
   .desktop-only {
-    display: block;
+    display: block !important;
+    &.map-info-container {
+      display: flex !important;
+    }
+    &.country-cities {
+      display: grid !important;
+    }
   }
 
   .mobile-only {

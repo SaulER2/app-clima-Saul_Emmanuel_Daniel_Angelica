@@ -84,7 +84,7 @@ export default function WeatherToday({ cityData, favorites, selectedIndex, onSel
 
                     <div className="location">
                         <h2>
-                            <span className="place">{city}</span>
+                            <span className="place">{forecast?.city?.name}</span>
                         </h2>
 
                         <span className="description">

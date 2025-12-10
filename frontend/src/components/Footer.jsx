@@ -2,12 +2,14 @@ import React from "react";
 import "./css/Footer.css";
 
 export default function Footer({ view, goTo, favoritesCount, darkMode, toggleTheme }) {
+
+    const currentYear = new Date().getFullYear();
     return (
         <>
             <nav className="bottom-nav mobile-only">
                 <button className={`nav-btn ${view === "home" ? "active" : ""}`} onClick={() => goTo("home")}>
                     <img src={`https://img.icons8.com/ios/50/${darkMode ? "ffffff" : "000000"}/home.png`} alt="home" />
-                    <span>Home</span>
+                    <span>Inicio</span>
                 </button>
 
                 <button className={`nav-btn ${view === "favorites" ? "active" : ""}`} onClick={() => goTo("favorites")}>
@@ -22,13 +24,12 @@ export default function Footer({ view, goTo, favoritesCount, darkMode, toggleThe
 
                 <button className="nav-btn" onClick={toggleTheme}>
                     <img src={`https://img.icons8.com/ios/50/${darkMode ? "ffffff" : "000000"}/${darkMode ? "moon" : "sun"}.png`} alt="theme" />
-                    <span>Theme</span>
+                    <span>Tema</span>
                 </button>
             </nav>
-
             <footer className="desktop-only footer-info">
-                <p>© 2025 Clima, Inc. "Clima" y el diseño del sol son marcas comerciales registradas de Clima, Inc. Todos los derechos reservados.</p>
-                <p>2025 &copy; All rights reserved</p>
+                <p>© {currentYear} Clima, Inc. "Clima" y el diseño del sol son marcas comerciales registradas de Clima, Inc. Todos los derechos reservados.</p>
+                <p>{currentYear} &copy; All rights reserved</p>
                 <a className="footer-link" href="#terms">Términos de uso</a> | <a className="footer-link" href="#privacy">Política de privacidad</a> | <a className="footer-link" href="#cookies">Política de cookies</a>
             </footer>
         </>

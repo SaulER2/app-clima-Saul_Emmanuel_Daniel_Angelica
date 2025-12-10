@@ -47,7 +47,7 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect, cityDa
                                 key={index}
                                 onClick={() => onSelect(dayIndex)}
                                 className={(selectedIndex === dayIndex ? "active" : "") + " day-pill"}
-                                title={`${getDayName(dayIndex)} - ${(item.main.temp)}°`}
+                                title={`${getDayName(dayIndex)} - ${Math.round(item.main.temp)}°`}
                             >
                                 <div className="day-label">
                                     {dayIndex === 0 ? "Hoy" : getDayName(dayIndex)}
@@ -56,7 +56,7 @@ export default function ForecastDays({ forecast, selectedIndex, onSelect, cityDa
                                     <span style={{ fontSize: "3rem" }}>{weatherIcons[item.weather[0].icon]}</span>
                                 </div>
                                 <div className="day-temp">
-                                    {(item.main.temp)}°
+                                    {Math.round(item.main.temp)}°
                                 </div>
                             </button>
                         );

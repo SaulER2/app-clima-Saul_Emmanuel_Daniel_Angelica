@@ -5,7 +5,7 @@ import weatherIcons from '../data/weatherIcons';
 export default function PopularCities({ popularCities, selectedIndex, setLatitude, setLongitude, setCity }) {
 
     return (
-        <section>
+        <section style={{ paddingBottom: "2rem" }}>
             <p className='localidades'>Localidades Populares</p>
             <article className='popular-cities mobile-only' id='popular-cities'>
                 {popularCities.map((city, index) => {
